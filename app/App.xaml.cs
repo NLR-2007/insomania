@@ -93,11 +93,22 @@ namespace Insominia
             Microsoft.Win32.SystemEvents.SessionEnding += delegate { QuitApp(); };
             UpdateTray();
 
-            // First run: show the panel so the app is not invisible on launch.
-            if (!AppSettings.GetBool("HasLaunchedBefore", false))
+            // Double-clicking an app and getting nothing at all feels broken,
+            // however correct "it lives in the tray" is. So a manual launch
+            // always opens the panel; only the Windows startup entry, which
+            // passes --autostart, starts quietly in the tray.
+            bool autoStarted = false;
+            foreach (string a in e.Args)
+                if (string.Equals(a, StartupManager.AutoStartFlag, StringComparison.OrdinalIgnoreCase))
+                    autoStarted = true;
+
+            AppSettings.Set("HasLaunchedBefore", true);
+            AppSettings.Save();
+
+            Log.Write("startup: autoStarted=" + autoStarted + " args=[" + string.Join(" ", e.Args) + "]");
+
+            if (!autoStarted)
             {
-                AppSettings.Set("HasLaunchedBefore", true);
-                AppSettings.Save();
                 _panel.ShowSmooth();
             }
         }

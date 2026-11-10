@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import LiveLog from './components/LiveLog'
 import Reveal from './components/Reveal'
 import Faq from './components/Faq'
+import Install from './components/Install'
 import { DOWNLOAD_URL, RELEASE } from './config'
 
 /* ── small pieces ─────────────────────────────────────────────────────── */
@@ -45,6 +46,7 @@ function Nav() {
           <a href="#problem">Why</a>
           <a href="#how">How it works</a>
           <a href="#proof">Proof</a>
+          <a href="#install">Install</a>
           <a href="#faq">FAQ</a>
           <DownloadButton>Download</DownloadButton>
         </div>
@@ -357,7 +359,7 @@ export default function App() {
 
               <div className="dl__btns">
                 <DownloadButton large>Download Insominia</DownloadButton>
-                <a className="btn btn--ghost btn--lg" href="#faq">Read the FAQ first</a>
+                <a className="btn btn--ghost btn--lg" href="#install">How to install it</a>
               </div>
 
               <div className="dl__specs">
@@ -399,6 +401,28 @@ export default function App() {
               )}
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ══ INSTALL ══ */}
+      <section className="sec" id="install">
+        <div className="wrap">
+          <Reveal className="sec__head">
+            <p className="eyebrow">Installing it</p>
+            <h2>
+              Two warnings. Then it
+              <br />
+              just <em className="accent">works</em>.
+            </h2>
+            <p className="lede">
+              Google and Windows both warn about Insominia, and the wording is
+              alarming. Neither has found anything wrong with it — the file is
+              simply too big for Google to scan and too new for Windows to
+              recognise. Here is exactly what you will see.
+            </p>
+          </Reveal>
+
+          <Install />
         </div>
       </section>
 
