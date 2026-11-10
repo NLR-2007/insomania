@@ -16,13 +16,22 @@
 //  Using the file id (rather than the /view link) gives a direct download
 //  instead of a Drive preview page the visitor has to click through.
 //
-export const DRIVE_FILE_ID = 'PASTE_YOUR_GOOGLE_DRIVE_FILE_ID_HERE'
+export const DRIVE_FILE_ID = '1RkmxeDhnwIONCJ4SRmUpSt0ElKDuyUaF'
 
-// Drive's direct-download endpoint.
+// Note the host: drive.usercontent.google.com, not drive.google.com.
+//
+// The familiar `drive.google.com/uc?export=download&id=...` link does NOT
+// serve a file this size. Google cannot virus-scan 139 MB, so it answers with
+// a "Download warning" HTML page that the visitor has to click through —
+// verified: it returns text/html, not the binary.
+//
+// This endpoint with `confirm=t` answers with the file itself
+// (application/octet-stream, filename="Insominia.exe"), so the download
+// button just downloads.
 export const DOWNLOAD_URL =
   DRIVE_FILE_ID === 'PASTE_YOUR_GOOGLE_DRIVE_FILE_ID_HERE'
     ? null
-    : `https://drive.google.com/uc?export=download&id=${DRIVE_FILE_ID}`
+    : `https://drive.usercontent.google.com/download?id=${DRIVE_FILE_ID}&export=download&confirm=t`
 
 export const RELEASE = {
   version: '2.0.0',
@@ -36,4 +45,4 @@ export const RELEASE = {
   runtime: null,
 }
 
-export const REPO_URL = 'https://github.com/'
+export const REPO_URL = 'https://github.com/NLR-2007/insomania'
