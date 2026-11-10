@@ -611,13 +611,3 @@ em.accent {
   padding-top: 16px;
 }
 .dl__hint .mono { color: var(--ink-dim); font-size: 12.5px; }
-
-.dl__hash {
-  margin-top: 18px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  color: var(--ink-faint);
-  word-break: break-all;
-  letter-spacing: 0.02em;
-}
-.dl__hash .mono { color: #46565a; }

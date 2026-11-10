@@ -380,12 +380,6 @@ export default function App() {
                 afterwards means approving that prompt again.
               </p>
 
-              {RELEASE.sha256 && (
-                <p className="dl__hash">
-                  SHA-256 <span className="mono">{RELEASE.sha256.toLowerCase()}</span>
-                </p>
-              )}
-
               {RELEASE.runtime && (
                 <p className="notice">
                   <b>Needs {RELEASE.runtime.name}.</b>{' '}

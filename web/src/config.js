@@ -37,8 +37,6 @@ export const RELEASE = {
   version: '2.0.0',
   size: '139 MB',
   date: 'November 2026',
-  sha256: 'D18A3E13AE44BDE55173098D442E5B5DFCC870107CEEB4B0EA92734A651E419B',
-
   // Published self-contained: .NET is bundled inside the exe, so there is
   // nothing for the visitor to install first. That is what the extra size
   // buys. Setting this to an object again would re-show a requirement notice.
