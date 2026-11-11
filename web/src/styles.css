@@ -196,6 +196,8 @@ em.accent {
 
 .btn[aria-disabled='true'] { opacity: 0.45; cursor: not-allowed; }
 .btn[aria-disabled='true']:hover { transform: none; box-shadow: none; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn:disabled:hover { transform: none; background: var(--cyan); box-shadow: none; }
 
 /* ── hero ───────────────────────────────────────────────────────────────── */
 
@@ -629,10 +631,19 @@ em.accent {
 .pricing__included ul { list-style: none; display: grid; gap: 20px; }
 .pricing__included li { position: relative; color: var(--ink-dim); padding-left: 25px; }
 .pricing__included li::before { content: '✓'; position: absolute; left: 0; color: var(--cyan); font-weight: 700; }
+.pricing__source { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; }
+.pricing__access { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 80px); align-items: center; border-top: 1px solid var(--line); margin-top: 62px; padding-top: 54px; }
+.pricing__access h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 48px); font-weight: 400; line-height: 1.06; margin: 16px 0; }
+.pricing__access p:not(.eyebrow) { color: var(--ink-dim); }
+.pricing__actions { display: grid; gap: 12px; }
+.pricing__actions .btn { width: 100%; justify-content: center; white-space: normal; text-align: center; }
+.pricing__actions small { color: var(--ink-faint); font-size: 12px; line-height: 1.5; }
+.pricing__unavailable { padding: 12px 0; text-align: center; }
 
 @media (max-width: 760px) {
   .pricing__card { grid-template-columns: 1fr; }
   .pricing__included { border-left: 0; border-top: 1px solid var(--line); }
+  .pricing__access { grid-template-columns: 1fr; margin-top: 46px; padding-top: 42px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

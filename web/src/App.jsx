@@ -6,7 +6,7 @@ import Faq from './components/Faq'
 import Install from './components/Install'
 import LegalPage from './components/LegalPage'
 import PricingPage from './components/PricingPage'
-import { DOWNLOAD_URL, RELEASE } from './config'
+import { DOWNLOAD_URL, RELEASE, REPO_URL } from './config'
 
 function getPageRoute() {
   const hash = window.location.hash
@@ -19,15 +19,11 @@ function getPageRoute() {
 /* ── small pieces ─────────────────────────────────────────────────────── */
 
 function DownloadButton({ large, children }) {
-  const ready = Boolean(DOWNLOAD_URL)
   return (
     <a
       className={`btn btn--primary${large ? ' btn--lg' : ''}`}
-      href={ready ? DOWNLOAD_URL : undefined}
-      aria-disabled={!ready}
-      title={ready ? 'Download Insominia for Windows' : 'Download link not configured yet'}
-      onClick={(e) => { if (!ready) e.preventDefault() }}
-      download
+      href="#/pricing"
+      title="See the free download steps"
     >
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 3v12" /><path d="m7 11 5 5 5-5" /><path d="M4 21h16" />
@@ -57,6 +53,7 @@ function Nav() {
           <a href="#how">How it works</a>
           <a href="#proof">Proof</a>
           <a href="#/pricing">Pricing</a>
+          <a href={REPO_URL} target="_blank" rel="noreferrer">GitHub</a>
           <a href="#install">Install</a>
           <a href="#faq">FAQ</a>
           <DownloadButton>Download</DownloadButton>
@@ -93,7 +90,7 @@ export default function App() {
   }
   const ease = [0.22, 0.8, 0.3, 1]
 
-  if (pageRoute === 'pricing') return <PricingPage DownloadButton={DownloadButton} />
+  if (pageRoute === 'pricing') return <PricingPage />
   if (pageRoute) return <LegalPage kind={pageRoute} />
 
   return (
@@ -486,6 +483,7 @@ export default function App() {
           <div className="foot__meta">
             <small>Made for people whose trains do not wait. · v{RELEASE.version}</small>
             <div className="foot__links">
+              <a href={REPO_URL} target="_blank" rel="noreferrer">GitHub</a>
               <a href="#/pricing">Pricing</a>
               <a href="#/terms">Terms and Conditions</a>
               <a href="#/privacy">Privacy Policy</a>
