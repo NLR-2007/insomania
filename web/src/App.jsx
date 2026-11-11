@@ -5,11 +5,15 @@ import Reveal from './components/Reveal'
 import Faq from './components/Faq'
 import Install from './components/Install'
 import LegalPage from './components/LegalPage'
+import PricingPage from './components/PricingPage'
 import { DOWNLOAD_URL, RELEASE } from './config'
 
-function getLegalRoute() {
+function getPageRoute() {
   const hash = window.location.hash
-  return hash === '#/terms' ? 'terms' : hash === '#/privacy' ? 'privacy' : null
+  if (hash === '#/terms') return 'terms'
+  if (hash === '#/privacy') return 'privacy'
+  if (hash === '#/pricing') return 'pricing'
+  return null
 }
 
 /* ── small pieces ─────────────────────────────────────────────────────── */
@@ -52,6 +56,7 @@ function Nav() {
           <a href="#problem">Why</a>
           <a href="#how">How it works</a>
           <a href="#proof">Proof</a>
+          <a href="#/pricing">Pricing</a>
           <a href="#install">Install</a>
           <a href="#faq">FAQ</a>
           <DownloadButton>Download</DownloadButton>
@@ -64,12 +69,12 @@ function Nav() {
 /* ── page ─────────────────────────────────────────────────────────────── */
 
 export default function App() {
-  const [legalRoute, setLegalRoute] = useState(getLegalRoute)
+  const [pageRoute, setPageRoute] = useState(getPageRoute)
 
   useEffect(() => {
     const onHashChange = () => {
-      const nextRoute = getLegalRoute()
-      setLegalRoute(nextRoute)
+      const nextRoute = getPageRoute()
+      setPageRoute(nextRoute)
       if (nextRoute || window.location.hash === '#top') window.scrollTo(0, 0)
     }
     window.addEventListener('hashchange', onHashChange)
@@ -77,10 +82,10 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    document.title = legalRoute
-      ? `${legalRoute === 'privacy' ? 'Privacy Policy' : 'Terms and Conditions'} — Insominia`
+    document.title = pageRoute
+      ? `${pageRoute === 'privacy' ? 'Privacy Policy' : pageRoute === 'pricing' ? 'Pricing' : 'Terms and Conditions'} — Insominia`
       : 'Insominia — give your laptop Insominia and get your freedom back'
-  }, [legalRoute])
+  }, [pageRoute])
 
   const fade = {
     initial: { opacity: 0, y: 24 },
@@ -88,7 +93,8 @@ export default function App() {
   }
   const ease = [0.22, 0.8, 0.3, 1]
 
-  if (legalRoute) return <LegalPage kind={legalRoute} />
+  if (pageRoute === 'pricing') return <PricingPage DownloadButton={DownloadButton} />
+  if (pageRoute) return <LegalPage kind={pageRoute} />
 
   return (
     <>
@@ -382,11 +388,6 @@ export default function App() {
             <div className="dl">
               <h2>Stop waiting for your laptop.</h2>
               <p className="dl__tag">Give your laptop Insominia and get your freedom back.</p>
-              <div className="dl__price">
-                <span>PRICE</span>
-                <strong>Free</strong>
-              </div>
-              <p className="dl__promise">Who are we to charge for your sleep? Your sleep. Your freedom.</p>
 
               <div className="dl__btns">
                 <DownloadButton large>Download Insominia</DownloadButton>
@@ -485,6 +486,7 @@ export default function App() {
           <div className="foot__meta">
             <small>Made for people whose trains do not wait. · v{RELEASE.version}</small>
             <div className="foot__links">
+              <a href="#/pricing">Pricing</a>
               <a href="#/terms">Terms and Conditions</a>
               <a href="#/privacy">Privacy Policy</a>
             </div>

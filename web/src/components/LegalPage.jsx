@@ -78,6 +78,7 @@ export default function LegalPage({ kind }) {
             <small>Made with love <span role="img" aria-label="blue heart">💙</span> for developers · Free to use.</small>
           </div>
           <div className="foot__links">
+            <a href="#/pricing">Pricing</a>
             <a href="#/terms">Terms and Conditions</a>
             <a href="#/privacy">Privacy Policy</a>
           </div>
