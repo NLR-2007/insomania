@@ -220,3 +220,9 @@ Settings and the log live in `%APPDATA%\Insominia\`.
 
 - Checkpoint and resume, so even a forced sleep does not lose work
 - Per-task history and timing
+
+---
+
+## License
+
+Insominia is free and open source under the [MIT License](LICENSE).

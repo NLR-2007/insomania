@@ -21,7 +21,7 @@ export default function PricingPage() {
         <div className="pricing__intro">
           <p className="eyebrow">Simple pricing</p>
           <h1>Keep working. Pay nothing.</h1>
-          <p className="lede">Insominia is free to use, and you can <a className="pricing__source" href={REPO_URL} target="_blank" rel="noreferrer">view the source on GitHub</a>. Star the project to support its development, then download the Windows app.</p>
+          <p className="lede">Insominia is free and open source under the MIT License. <a className="pricing__source" href={REPO_URL} target="_blank" rel="noreferrer">Explore the code on GitHub</a>, star the project to support its development, then download the Windows app.</p>
         </div>
 
         <div className="pricing__card">
@@ -41,6 +41,7 @@ export default function PricingPage() {
               <li>Battery, heat, and timer safeguards</li>
               <li>Local settings and readable diagnostic logs</li>
               <li>No Insominia account or subscription</li>
+              <li>Open source under the MIT License</li>
             </ul>
           </div>
         </div>
