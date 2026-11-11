@@ -4,7 +4,13 @@ import LiveLog from './components/LiveLog'
 import Reveal from './components/Reveal'
 import Faq from './components/Faq'
 import Install from './components/Install'
+import LegalPage from './components/LegalPage'
 import { DOWNLOAD_URL, RELEASE } from './config'
+
+function getLegalRoute() {
+  const hash = window.location.hash
+  return hash === '#/terms' ? 'terms' : hash === '#/privacy' ? 'privacy' : null
+}
 
 /* ── small pieces ─────────────────────────────────────────────────────── */
 
@@ -58,11 +64,31 @@ function Nav() {
 /* ── page ─────────────────────────────────────────────────────────────── */
 
 export default function App() {
+  const [legalRoute, setLegalRoute] = useState(getLegalRoute)
+
+  useEffect(() => {
+    const onHashChange = () => {
+      const nextRoute = getLegalRoute()
+      setLegalRoute(nextRoute)
+      if (nextRoute || window.location.hash === '#top') window.scrollTo(0, 0)
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
+  useEffect(() => {
+    document.title = legalRoute
+      ? `${legalRoute === 'privacy' ? 'Privacy Policy' : 'Terms and Conditions'} — Insominia`
+      : 'Insominia — give your laptop Insominia and get your freedom back'
+  }, [legalRoute])
+
   const fade = {
     initial: { opacity: 0, y: 24 },
     animate: { opacity: 1, y: 0 },
   }
   const ease = [0.22, 0.8, 0.3, 1]
+
+  if (legalRoute) return <LegalPage kind={legalRoute} />
 
   return (
     <>
@@ -260,7 +286,7 @@ export default function App() {
                 <div className="bar__track">
                   <motion.div
                     className="bar__fill"
-                    style={{ background: 'linear-gradient(90deg,#20e8d2,#0e9c8c)' }}
+                    style={{ background: 'var(--cyan)' }}
                     initial={{ width: 0 }}
                     whileInView={{ width: '100%' }}
                     viewport={{ once: true }}
@@ -275,7 +301,7 @@ export default function App() {
                 <div className="bar__track">
                   <motion.div
                     className="bar__fill"
-                    style={{ background: 'linear-gradient(90deg,#2a3537,#39474a)', color: '#9aa8ab' }}
+                    style={{ background: '#d2d8ce', color: 'var(--ink)' }}
                     initial={{ width: 0 }}
                     whileInView={{ width: '21%' }}
                     viewport={{ once: true }}
@@ -290,7 +316,7 @@ export default function App() {
                 <div className="bar__track">
                   <motion.div
                     className="bar__fill"
-                    style={{ background: 'linear-gradient(90deg,#20e8d2,#0e9c8c)' }}
+                    style={{ background: 'var(--cyan)' }}
                     initial={{ width: 0 }}
                     whileInView={{ width: '100%' }}
                     viewport={{ once: true }}
@@ -356,6 +382,11 @@ export default function App() {
             <div className="dl">
               <h2>Stop waiting for your laptop.</h2>
               <p className="dl__tag">Give your laptop Insominia and get your freedom back.</p>
+              <div className="dl__price">
+                <span>PRICE</span>
+                <strong>Free</strong>
+              </div>
+              <p className="dl__promise">Who are we to charge for your sleep? Your sleep. Your freedom.</p>
 
               <div className="dl__btns">
                 <DownloadButton large>Download Insominia</DownloadButton>
@@ -445,13 +476,19 @@ export default function App() {
           <div className="foot__brand">
             <img src="./logo.png" alt="" width="30" height="30" />
             <div>
+              <span className="foot__maker">A NLR PRODUCT</span>
               <b>Insominia</b>
               <small>Close the lid. Keep working.</small>
+              <small className="foot__love">Made with love <span role="img" aria-label="blue heart">💙</span> for developers · Free to use.</small>
             </div>
           </div>
-          <small>
-            Made for people whose trains do not wait. · v{RELEASE.version}
-          </small>
+          <div className="foot__meta">
+            <small>Made for people whose trains do not wait. · v{RELEASE.version}</small>
+            <div className="foot__links">
+              <a href="#/terms">Terms and Conditions</a>
+              <a href="#/privacy">Privacy Policy</a>
+            </div>
+          </div>
         </div>
       </footer>
     </>
